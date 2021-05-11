@@ -84,8 +84,16 @@ while(loop_run):
                
             http_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?" + district_append + date_append
     
+            print (http_url)
             time.sleep(5)
-            g = requests.get(http_url)
+            base_request_header = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+            'Upgrade-Insecure-Requests' : '1'
+            }
+            
+            g = requests.get(http_url, headers = base_request_header)
+            
+            
             cal_data = json.loads(g.text)
 
        
