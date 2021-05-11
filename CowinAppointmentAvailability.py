@@ -28,7 +28,7 @@ TWILIO_ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXX' # twilio account id
 TWILIO_AUTH_TOKEN = '5fXXXXXXXXXXXXXXXXXXXX' # twilio auth token
 TWILIO_FROM_NUMBER = 'whatsapp:+XXXXXXXX' # add your twilio number
 TWILIO_TO_NUMBER = 'whatsapp:+91XXXXXXXXX' # add the whatsapp number...create session on Twilio..or use sms
-OTP_MOBILE_NUMBER = '{"mobile":"7899817668"}' # add the mobile number at XXX
+OTP_MOBILE_NUMBER = '{"mobile":"XXXXXXXXXX"}' # add the mobile number at XXX
 MINAGE = 45 # change to 45 if you are looking for 45+
 MINCOUNT = 0 # if you want to avoid single return slots, change to 1
 
@@ -103,11 +103,13 @@ while(loop_run):
                     break
                 for i in value:
                     print(i['name'] + ' ' + str(i['min_age_limit']) + ' ' + str(i['available_capacity']))
-                    if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT):        
+#                    if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT and i['vaccine'] == 'COVAXIN'): #if you want covaxin...        
+                    if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT):  
                         print("Name: " + i['name'])
                         print("Date: " + str(i['date']))
                         print("Available: " + str(i['available_capacity']))
                         print("Pincode: " + str(i['pincode']))
+                        print ("Vaccine:" + i['vaccine'])
                         
                         duration = 2000  # Set Duration To 1000 ms == 1 second
                         frequency = 2500  # Set Frequency To 2500 Hertz
