@@ -29,7 +29,7 @@ TWILIO_AUTH_TOKEN = '5fXXXXXXXXXXXXXXXXXXXX' # twilio auth token
 TWILIO_FROM_NUMBER = 'whatsapp:+XXXXXXXX' # add your twilio number
 TWILIO_TO_NUMBER = 'whatsapp:+91XXXXXXXXX' # add the whatsapp number...create session on Twilio..or use sms
 OTP_MOBILE_NUMBER = '{"mobile":"XXXXXXXXXX"}' # add the mobile number at XXX
-MINAGE = 45 # change to 45 if you are looking for 45+
+MINAGE = 18 # change to 45 if you are looking for 45+
 MINCOUNT = 0 # if you want to avoid single return slots, change to 1
 
 NUMBER_OF_DAYS_SCOUT = 2
