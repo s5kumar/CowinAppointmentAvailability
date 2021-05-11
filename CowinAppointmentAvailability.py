@@ -28,8 +28,8 @@ TWILIO_ACCOUNT_SID = 'ACXXXXXXXXXXXXXXXXX' # twilio account id
 TWILIO_AUTH_TOKEN = '5fXXXXXXXXXXXXXXXXXXXX' # twilio auth token
 TWILIO_FROM_NUMBER = 'whatsapp:+XXXXXXXX' # add your twilio number
 TWILIO_TO_NUMBER = 'whatsapp:+91XXXXXXXXX' # add the whatsapp number...create session on Twilio..or use sms
-OTP_MOBILE_NUMBER = '{"mobile":"XXXXXXXXX"}' # add the mobile number at XXX
-MINAGE = 18 # change to 45 if you are looking for 45+
+OTP_MOBILE_NUMBER = '{"mobile":"7899817668"}' # add the mobile number at XXX
+MINAGE = 45 # change to 45 if you are looking for 45+
 MINCOUNT = 0 # if you want to avoid single return slots, change to 1
 
 NUMBER_OF_DAYS_SCOUT = 2
@@ -51,6 +51,7 @@ def sendOTPRequest():
     headers = {
                 'accept': 'application/json',
                 'Content-Type': 'application/json',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
             }
     
     data = OTP_MOBILE_NUMBER
@@ -84,7 +85,6 @@ while(loop_run):
                
             http_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?" + district_append + date_append
     
-            print (http_url)
             time.sleep(5)
             base_request_header = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
