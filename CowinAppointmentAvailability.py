@@ -29,8 +29,9 @@ TWILIO_AUTH_TOKEN = '5fXXXXXXXXXXXXXXXXXXXX' # twilio auth token
 TWILIO_FROM_NUMBER = 'whatsapp:+XXXXXXXX' # add your twilio number
 TWILIO_TO_NUMBER = 'whatsapp:+91XXXXXXXXX' # add the whatsapp number...create session on Twilio..or use sms
 OTP_MOBILE_NUMBER = '{"mobile":"XXXXXXXXXX"}' # add the mobile number at XXX
-MINAGE = 18 # change to 45 if you are looking for 45+
+MINAGE = 45 # change to 45 if you are looking for 45+
 MINCOUNT = 0 # if you want to avoid single return slots, change to 1
+DOSE = 2 # 0 for all, 1 for dose 1, 2 for dose 2
 
 NUMBER_OF_DAYS_SCOUT = 2
 
@@ -61,13 +62,34 @@ def sendOTPRequest():
         
 loop_run = True # run infinite loop
 
+def foundAppointment(name,date, available_capacity, vaccine, pincode):
+    print("----------------------------------")
+    print("Name: " + name)
+    print("Date: " + date)
+    print("Available_Dose: " + available_capacity)
+    print("Pincode: " + pincode)
+    print ("Vaccine:" + vaccine)
+    print("----------------------------------")
+    
+    duration = 2000  # Set Duration To 1000 ms == 1 second
+    frequency = 2500  # Set Frequency To 2500 Hertz
+    if(i['available_capacity'] > 1): # smaller beeps for lower count
+        duration = 10000;
+
+
+  #  winsound.Beep(frequency, duration)
+
+    bodytxt=i['name'] + ' ' + i['date'] + ' ' + str(i['pincode'])
+    #uncomment below line when you want the whatsapp msg using Twilio
+    #sendWhatsAppMsgwithTwilio(bodytxt) 
+    sendOTPRequest()
+    
 while(loop_run):
    
     today1 = datetime.date.today() #start from today
 
     for i in range(NUMBER_OF_DAYS_SCOUT):
-        if (loop_run == False):
-            break
+
         today2 = today1+ datetime.timedelta(days=i)
         date = today2.strftime("%d-%m-%Y")
         str1="&date="
@@ -75,8 +97,7 @@ while(loop_run):
      
         
         for j in range(len(DISTRICT_LIST)):
-            if (loop_run == False):
-                    break
+
                 
             district_append = DISTRICT_LIST[j][1]
 
@@ -104,27 +125,20 @@ while(loop_run):
                 for i in value:
                     print(i['name'] + ' ' + str(i['min_age_limit']) + ' ' + str(i['available_capacity']))
 #                    if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT and i['vaccine'] == 'COVAXIN'): #if you want covaxin...        
-                    if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT):  
-                        print("Name: " + i['name'])
-                        print("Date: " + str(i['date']))
-                        print("Available: " + str(i['available_capacity']))
-                        print("Pincode: " + str(i['pincode']))
-                        print ("Vaccine:" + i['vaccine'])
-                        
-                        duration = 2000  # Set Duration To 1000 ms == 1 second
-                        frequency = 2500  # Set Frequency To 2500 Hertz
-                        if(i['available_capacity'] > 1): # smaller beeps for lower count
-                            duration = 10000;
+                    if(DOSE == 0):
+                        if(i['min_age_limit'] == MINAGE and i['available_capacity'] > MINCOUNT):  
                             loop_run = False # remove this if you want it to continue running after finding one
-                        
-                        winsound.Beep(frequency, duration)
-                        
-                        bodytxt=i['name'] + ' ' + i['date'] + ' ' + str(i['pincode'])
-                        sendOTPRequest()
-                        #uncomment below line when you want the whatsapp msg using Twilio
-                        #sendWhatsAppMsgwithTwilio(bodytxt) 
+                            foundAppointment(i['name'], i['date'], str(i['available_capacity']), i['vaccine'], str(i['pincode']))
+                    elif(DOSE == 1):
+                        if(i['min_age_limit'] == MINAGE and i['available_capacity_dose1'] > MINCOUNT):  
+                            loop_run = False # remove this if you want it to continue running after finding one
+                            foundAppointment(i['name'], i['date'], str(i['available_capacity']), i['vaccine'], str(i['pincode']))
 
-                        break
+                    elif(DOSE == 2):
+                        if(i['min_age_limit'] == MINAGE and i['available_capacity_dose2'] > MINCOUNT):  
+                            loop_run = False # remove this if you want it to continue running after finding one
+                            foundAppointment(i['name'], i['date'], str(i['available_capacity']), i['vaccine'], str(i['pincode']))
+                   
    
    
      
