@@ -31,7 +31,8 @@ TWILIO_TO_NUMBER = 'whatsapp:+91XXXXXXXXX' # add the whatsapp number...create se
 OTP_MOBILE_NUMBER = '{"mobile":"XXXXXXXXXX"}' # add the mobile number at XXX
 MINAGE = 45 # change to 45 if you are looking for 45+
 MINCOUNT = 0 # if you want to avoid single return slots, change to 1
-DOSE = 2 # 0 for all, 1 for dose 1, 2 for dose 2
+DOSE = 1 # 0 for all, 1 for dose 1, 2 for dose 2
+VACCINE = 0 # 0 for all, 1 for covaxin, 2 for covidsheild, 3 for sputnik
 
 NUMBER_OF_DAYS_SCOUT = 2
 
@@ -63,6 +64,19 @@ def sendOTPRequest():
 loop_run = True # run infinite loop
 
 def foundAppointment(name,date, available_capacity, vaccine, pincode):
+    
+    if(VACCINE == 1):
+        if(vaccine != 'COVAXIN'):
+            return
+        
+    if(VACCINE == 2):
+        if(vaccine != 'COVISHIELD'):
+            return
+    
+    if(VACCINE == 3):
+        if(vaccine != 'SPUTNIK V'):
+            return
+        
     print("----------------------------------")
     print("Name: " + name)
     print("Date: " + date)
